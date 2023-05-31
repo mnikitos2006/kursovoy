@@ -1,0 +1,12 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.container svg{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+}

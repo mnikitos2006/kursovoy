@@ -1,0 +1,80 @@
+.colorContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.colorBlock {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+}
+
+.category {
+    border: 2px solid #9C89B8;
+    border-radius: 7px;
+    width: 242px;
+    height: 35px;
+}
+
+.dobavit {
+    display: flex;
+    justify-content: center;
+}
+
+.dobavit button {
+    background-color: #9C89B8;
+    color: white;
+    width: 232px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 22px;
+    border-radius: 8px;
+    border: 0px;
+    margin: 10px;
+}
+
+.level {
+    border: 2px solid #9C89B8;
+    border-radius: 7px;
+    width: 242px;
+    height: 35px;
+}
+
+.alarm {
+    border: 2px solid #9C89B8;
+    border-radius: 7px;
+    width: 242px;
+    height: 35px;
+}
+
+.during{
+    border: 2px solid #9C89B8;
+    border-radius: 7px;
+    width: 242px;
+    height: 35px;
+}
+.name{
+    border: 2px solid #9C89B8;
+    border-radius: 7px;
+    width: 232px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+}
+.oknoGlavnoe{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+
+}
+.date{
+    border: 2px solid #9C89B8;
+    border-radius: 7px;
+    width: 232px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+}
+
