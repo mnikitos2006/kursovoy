@@ -1,14 +1,19 @@
-import Square, {getColorTask} from "../../../data";
 import styles from "./AddTask.module.css"
 import {GetLable} from "../../../GetLable/GetLable";
+import {getColorTask} from "../../../data";
+import cls from "classnames";
+import {useContext} from "react";
+import {TaskManagerContext} from "../../../App";
 
-export const AddTask = (props) => {
+export const AddTask = () => {
+    const {data,text,setText,color,setColor,addTask}=useContext(TaskManagerContext)
+    console.log(data)
 
     return <div className={styles.oknoGlavnoe}>
         <GetLable title={"Name"}><input className={styles.name} placeholder={"Введите название"}
-                                                value={props.text}
-                                                onChange={(e) => props.setText(e.target.value)}/>
-    </GetLable>
+                                        value={text}
+                                        onChange={(e) => setText(e.target.value)}/>
+        </GetLable>
         <GetLable title={"Date"}><input className={styles.date} placeholder={"Введите дату"}/>
         </GetLable>
 
@@ -34,10 +39,15 @@ export const AddTask = (props) => {
         <GetLable title={"Color"}>
 
             <div className={styles.colorContainer}>
-                {getColorTask().map(el => <div className={styles.colorBlock} onClick={() => props.setColor(el)}
+                {getColorTask().map(el => <div className={cls(styles.colorBlock,{[styles.colorBlockBorder]:el===color}) }onClick={() => {
+                    console.log(el)
+                    console.log(color)
+                    setColor(el)
+                }
+                }
                                                style={{
                                                    background: el,
-                                                   border: el ? '2px solid blue' : 'none',
+                                                   // border: el ? '2px solid blue' : 'none',
                                                }}></div>)}
 
             </div>
@@ -58,7 +68,7 @@ export const AddTask = (props) => {
             </select>
         </GetLable>
         <div className={styles.dobavit}>
-            <button onClick={props.addTask}>Добавить</button>
+            <button onClick={addTask}>Добавить</button>
         </div>
     </div>
 }

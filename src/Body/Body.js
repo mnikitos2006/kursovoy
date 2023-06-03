@@ -1,13 +1,14 @@
 import {getTasks} from "../data";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import styles from "./Body.module.css"
+import {TaskManagerContext} from "../App";
 
-export const Body = (props) => {
-
+export const Body = () => {
+const {tasks}=useContext(TaskManagerContext)
     return <div className={styles.container}>
         <div>Tasks</div>
         <div>
-            {props.tasks.map(task => <div className={styles.task} key={task.id} style={{background:task.color}}>{task.text}</div>)}
+            {tasks.map(task => <div className={styles.task} key={task.id} style={{background:task.color}}>{task.text}</div>)}
         </div>
     </div>
 }
