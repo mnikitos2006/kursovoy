@@ -1,13 +1,13 @@
-import styles from "./AddTask.module.css"
+import styles from "./TaskContainer.module.css"
 import {GetLable} from "../../../GetLable/GetLable";
-import {getColorTask} from "../../../data";
+import {getColorTask} from "../../../Provider/data";
 import cls from "classnames";
 import {useContext} from "react";
-import {TaskManagerContext} from "../../../App";
+import {TaskManagerContext} from "../../../Provider";
 
-export const AddTask = () => {
-    const {data,text,setText,color,setColor,addTask}=useContext(TaskManagerContext)
-    console.log(data)
+export const TaskContainer = (props) => {
+    const {text, setText, color, setColor, addTask} = props
+
 
     return <div className={styles.oknoGlavnoe}>
         <GetLable title={"Name"}><input className={styles.name} placeholder={"Введите название"}
@@ -39,16 +39,18 @@ export const AddTask = () => {
         <GetLable title={"Color"}>
 
             <div className={styles.colorContainer}>
-                {getColorTask().map(el => <div className={cls(styles.colorBlock,{[styles.colorBlockBorder]:el===color}) }onClick={() => {
-                    console.log(el)
-                    console.log(color)
-                    setColor(el)
-                }
-                }
-                                               style={{
-                                                   background: el,
-                                                   // border: el ? '2px solid blue' : 'none',
-                                               }}></div>)}
+                {getColorTask().map((el, idx) => <div key={idx}
+                                                      className={cls(styles.colorBlock, {[styles.colorBlockBorder]: el === color})}
+                                                      onClick={() => {
+                                                          console.log(el)
+                                                          console.log(color)
+                                                          setColor(el)
+                                                      }
+                                                      }
+                                                      style={{
+                                                          background: el,
+                                                          // border: el ? '2px solid blue' : 'none',
+                                                      }}></div>)}
 
             </div>
 
