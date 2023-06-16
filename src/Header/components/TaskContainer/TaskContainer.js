@@ -2,13 +2,20 @@ import styles from "./TaskContainer.module.css"
 import {GetLable} from "../../../GetLable/GetLable";
 import {getColorTask} from "../../../Provider/data";
 import cls from "classnames";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {TaskManagerContext} from "../../../Provider";
 
 export const TaskContainer = (props) => {
-    const {text, setText, color, setColor, addTask} = props
+    console.log(props)
+    const [text, setText] = useState(props.task.text)
+    const [color, setColor] = useState(props.task.color)
+    const {setText: setGlobalText, setColor: setGlobalColor, addTask:addGlobalTask} = useContext(TaskManagerContext)
+    const addTask=()=>{
 
-
+        setGlobalText(text)
+        setGlobalColor(color)
+        addGlobalTask()
+    }
     return <div className={styles.oknoGlavnoe}>
         <GetLable title={"Name"}><input className={styles.name} placeholder={"Введите название"}
                                         value={text}
