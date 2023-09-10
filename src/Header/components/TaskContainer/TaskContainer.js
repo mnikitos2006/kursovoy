@@ -2,20 +2,23 @@ import styles from "./TaskContainer.module.css"
 import {GetLable} from "../../../GetLable/GetLable";
 import {getColorTask} from "../../../Provider/data";
 import cls from "classnames";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {TaskManagerContext} from "../../../Provider";
+import isEmpty from "lodash/isEmpty";
 
 export const TaskContainer = (props) => {
     console.log(props)
-    const [text, setText] = useState(props.task.text)
-    const [color, setColor] = useState(props.task.color)
-    const {setText: setGlobalText, setColor: setGlobalColor, addTask:addGlobalTask} = useContext(TaskManagerContext)
-    const addTask=()=>{
-
-        setGlobalText(text)
-        setGlobalColor(color)
-        addGlobalTask()
+    const [text, setText] = useState(props.task?.text)
+    const [color, setColor] = useState(props.task?.color)
+    const {editTask:editGlobalTask} = useContext(TaskManagerContext)
+    const onClick=()=>{
+       if(!isEmpty(props)){
+          editGlobalTask(text,color,props.task.id)
+       }else{
+           editGlobalTask(text,color)
+       }
     }
+
     return <div className={styles.oknoGlavnoe}>
         <GetLable title={"Name"}><input className={styles.name} placeholder={"Введите название"}
                                         value={text}
@@ -77,7 +80,7 @@ export const TaskContainer = (props) => {
             </select>
         </GetLable>
         <div className={styles.dobavit}>
-            <button onClick={addTask}>Добавить</button>
+            <button onClick={onClick}>{isEmpty(props)?"Добавить":"Редактировать"}</button>
         </div>
     </div>
 }

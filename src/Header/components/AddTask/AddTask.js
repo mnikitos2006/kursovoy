@@ -4,5 +4,5 @@ import {TaskManagerContext} from "../../../Provider";
 
 export const AddTask = () => {
 
-    return <TaskContainer {...{task:{text:"",color:""}}}/>
+    return <TaskContainer />
 }
