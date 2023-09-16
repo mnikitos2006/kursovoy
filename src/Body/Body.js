@@ -7,12 +7,14 @@ import {EditTask} from "../Header/components/EditTask/EditTask";
 import {TaskWrapper} from "./component/taskWrapper";
 
 export const Body = () => {
-    const {tasks} = useContext(TaskManagerContext)
+    const {tasks,setTask} = useContext(TaskManagerContext)
+
     console.log(tasks)
     return <div className={styles.container}>
         <div>Tasks</div>
         <div>
-            {tasks.map((task,index) =><TaskWrapper key={index} task={task}/>)}
+            {tasks.length===0&&<div>Нет задач</div>}
+            {tasks.map((task,index) =><TaskWrapper key={index} task={task} setTask={setTask}/>)}
         </div>
 
     </div>
