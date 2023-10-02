@@ -1,5 +1,6 @@
 import {createContext, useState} from "react";
 import {getColorTask, getTasks} from "./data";
+import {BASE_URL} from "../constants/constants";
 
 export const TaskManagerContext = createContext({})
 export const TaskManagerProvider = ({children}) => {
@@ -18,7 +19,8 @@ export const TaskManagerProvider = ({children}) => {
     //         setColor((getColorTask()[0]))
     //     })
     // }
-    const editTask = (newText, newColor, newCategory, id) => {
+    const editTask = (newText, newColor, newCategory,newPriority,newDate, id) => {
+
         if (id) {
             // если есть ID тогда редактируем если нет то создаём новую
             setTask(prevState => {
@@ -28,13 +30,21 @@ export const TaskManagerProvider = ({children}) => {
                 newArr[index].text = newText
                 newArr[index].color = newColor
                 newArr[index].category = newCategory
+                newArr[index].levelImportance=newPriority
+                newArr[index].date=newDate
                 return newArr
             })
         } else {
             setTask(prevstate => {
                 const newArr = [...prevstate]
-                newArr.push({id: newArr.length + 1, text: newText, color: newColor,category:newCategory})
+                newArr.push({id: newArr.length + 1, text: newText, color: newColor,category:newCategory,levelImportance:newPriority,date:newDate})
+
                 return newArr
+            })
+            fetch(BASE_URL,{
+                method:"POST",
+                headers: {'content-type':'application/json'},
+                body: JSON.stringify({ text: newText, color: newColor,category:newCategory,levelImportance:newPriority,date:newDate})
             })
             setIsVisibleAddTask(false)
         }

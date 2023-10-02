@@ -6,44 +6,50 @@ export const category = {
     home: "home",
     eat: "eat"
 }
+export const levelImportance = {
+    hard: "Важно",
+    normal: "Не особо важно",
+    easy: "Не важно"
+}
 export const getTasks = () => {
 
-    const levelImportance = {
-        hard: "Hard",
-        normal: "Normal",
-        easy: "Easy"
-    }
+
     return [
         {
             id: 1,
             text: "Task1",
             color: getColorTask()[0],
-            data: new Date().toISOString(),
+            date: "2023-10-07",
             category: category.work,
             levelImportance: levelImportance.hard,
-            setAlarm: new Date().toISOString(),
-            timeDuring: new Date().toISOString()
+
         },
         {
-            id: 2, text: "Task2", color: getColorTask()[1], data: new Date().toISOString(),
+            id: 2,
+            text: "Task2",
+            color: getColorTask()[1],
+            date: "2023-10-08",
             category: category.hobby,
-            levelImportance: levelImportance.hard,
-            setAlarm: new Date().toISOString(),
-            timeDuring: new Date().toISOString()
+            levelImportance: levelImportance.normal,
+
         },
         {
-            id: 3, text: "Task2", color: getColorTask()[2], data: new Date().toISOString(),
+            id: 3,
+            text: "Task3",
+            color: getColorTask()[2],
+            date: "2023-10-07",
             category: category.eat,
-            levelImportance: levelImportance.hard,
-            setAlarm: new Date().toISOString(),
-            timeDuring: new Date().toISOString()
+            levelImportance: levelImportance.easy,
+
         },
         {
-            id: 4, text: "Task3", color: getColorTask()[3], data: new Date().toISOString(),
+            id: 4,
+            text: "Task4",
+            color: getColorTask()[3],
+            date: "2023-10-09",
             category: category.home,
             levelImportance: levelImportance.hard,
-            setAlarm: new Date().toISOString(),
-            timeDuring: new Date().toISOString()
+
         }
     ]
 }
