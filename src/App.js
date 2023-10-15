@@ -1,20 +1,15 @@
-import React, {createContext, useState} from "react";
-import Square, {getColorTask, getTasks} from "./Provider/data";
-import {Header} from "./Header/Header";
-import {Body} from "./Body/Body";
-import styles from "./App.module.css"
-import {ModalWindow} from "./ModalWindow/ModalWindow";
-
-
+import React from 'react'
+import { Header } from './Header/Header'
+import { Body } from './Body/Body'
+import styles from './App.module.css'
 
 function App() {
-
-    return<div className={styles.app}>
-            <Header/>
-            <Body/>
-        </div>
-
-
+  return (
+    <div className={styles.app}>
+      <Header />
+      <Body />
+    </div>
+  )
 }
 
-export default App;
+export default App

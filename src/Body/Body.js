@@ -2,31 +2,29 @@ import { useContext, useEffect } from 'react'
 import styles from './Body.module.css'
 import { TaskManagerContext } from '../Provider'
 import { TaskWrapper } from './component/taskWrapper'
-import {BASE_URL} from "../constants/constants";
+import {levelImportance} from "../Provider/data";
 
-const getTasks = async () => {
-  let response = await fetch(BASE_URL)
-  console.log('response', response)
-
-  let commits = await response.json() // читаем ответ в формате JSON
-  console.log('commit', commits)
-  return commits
-}
 export const Body = () => {
-  const { tasks, setTask } = useContext(TaskManagerContext)
+  const { tasks, setTask, fetchTasks } = useContext(TaskManagerContext)
   useEffect(() => {
-      getTasks().then((result)=>{
-          setTask(result)
-      })
+    fetchTasks().then((result) => {
+      setTask(result)
+    })
   }, [])
-
+    const compareDifficulty = (a, b) => {
+        const order = { [levelImportance.hard]: 1, [levelImportance.normal]: 2, [levelImportance.easy]: 3 };
+        console.log(a)
+        console.log(order)
+        return order[a] - order[b];
+    };
   console.log(tasks)
   return (
     <div className={styles.container}>
       <div>Tasks</div>
       <div>
         {tasks.length === 0 && <div>Нет задач</div>}
-        {tasks.map((task, index) => (
+        {tasks.sort((a,b)=>
+            compareDifficulty(a.levelImportance,b.levelImportance)).map((task, index) => (
           <TaskWrapper key={index} task={task} setTask={setTask} />
         ))}
       </div>

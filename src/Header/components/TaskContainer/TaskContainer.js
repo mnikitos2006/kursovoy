@@ -31,8 +31,9 @@ export const TaskContainer = (props) => {
     const onChangePriority=(value)=>{
         setPrioritySelect(value)
     }
-    const onChangeDate=(_,dateString)=>{
-        setDate(dateString)
+    const onChangeDate=(dateGood,dateString)=>{
+        const dateGooda=dayjs(dateGood).format()
+        setDate(dateGooda)
     }
     return <div className={styles.oknoGlavnoe}>
         <GetLable title={"Name"}><input className={styles.name} placeholder={"Введите название"}
