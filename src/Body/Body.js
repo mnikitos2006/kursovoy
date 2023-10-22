@@ -4,6 +4,7 @@ import { TaskManagerContext } from '../Provider'
 import { TaskWrapper } from './component/taskWrapper'
 import {levelImportance, Status} from "../Provider/data";
 import {FilterWrapper} from "./component/filterWrapper/FilterWrapper";
+import DraggAndDrop from "./component/draggAndDrop/DraggAndDrop";
 
 export const Body = () => {
   const { tasks, setTask, fetchTasks } = useContext(TaskManagerContext)
@@ -24,6 +25,7 @@ export const Body = () => {
   return (
     <div className={styles.container}>
       <div>Tasks</div>
+
       <div>
         {tasks.length === 0 && <div>Нет задач</div>}
           <div className={styles.wrapperStatus}>
@@ -32,6 +34,8 @@ export const Body = () => {
               <FilterWrapper tasks={sortTask} status={Status.done} setTask={setTask}/>
           </div>
       </div>
+Драгондроп
+        <DraggAndDrop sortTask={sortTask} setTask={setTask}/>
     </div>
   )
 }
