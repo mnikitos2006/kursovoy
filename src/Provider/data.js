@@ -12,6 +12,12 @@ export const levelImportance = {
     easy: "Не важно"
 }
 
+export const Status = {
+    new: "Новая",
+    inWork: "В работе",
+    done: "Готово"
+}
+
 // export const getTasks = () => {
 //
 //

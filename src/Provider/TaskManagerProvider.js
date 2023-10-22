@@ -32,6 +32,7 @@ export const TaskManagerProvider = ({ children }) => {
     newCategory,
     newPriority,
     newDate,
+    newCheckedStatus,
     id
   ) => {
     // если есть ID тогда редактируем если нет то создаём новую
@@ -45,6 +46,7 @@ export const TaskManagerProvider = ({ children }) => {
           category: newCategory,
           levelImportance: newPriority,
           date: newDate,
+          status: newCheckedStatus,
         }),
       }).then((res) => {
         res.json().then((result) => {
@@ -67,6 +69,7 @@ export const TaskManagerProvider = ({ children }) => {
           category: newCategory,
           levelImportance: newPriority,
           date: newDate,
+          status: newCheckedStatus,
         }),
       }).then((res) => {
         res.json().then((result) => {
