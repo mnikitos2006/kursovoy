@@ -1,0 +1,19 @@
+.column{
+    /*border:1px solid black;*/
+    padding:10px;
+    border-radius: 8px;
+}
+.container{
+    display:flex;
+    gap:20px;
+}
+.new{
+    background: green;
+}
+.inWork{
+    background: blue;
+}
+
+.done{
+  background: aqua;
+}

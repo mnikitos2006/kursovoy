@@ -15,6 +15,14 @@ import { value } from 'lodash/seq'
 import { DatePicker } from 'antd'
 import dayjs from 'dayjs'
 import { Radio } from 'antd'
+import {
+    HomeOutlined,
+    LoadingOutlined,
+    SettingFilled,
+    SmileOutlined,
+    SyncOutlined,
+    EditOutlined
+} from '@ant-design/icons';
 
 const plainOptions = [Status.new, Status.inWork, Status.done]
 const defaultCheckedStatus = Status.new

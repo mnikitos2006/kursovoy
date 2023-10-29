@@ -5,6 +5,8 @@ import {useContext, useState} from 'react'
 import { Button } from 'antd'
 import {TaskManagerContext} from "../../Provider";
 import dayjs from "dayjs";
+import {EditOutlined,DeleteOutlined} from "@ant-design/icons";
+
 
 export const TaskWrapper = (props) => {
   const { task, setTask } = props
@@ -37,17 +39,17 @@ export const TaskWrapper = (props) => {
         </div>
 
         <div className={styles.btnContainer}>
-          <Button type="primary" size={'small'} onClick={onClick}>
-            Редактировать
-          </Button>
-          <Button
-            type="primary"
-            danger
-            size={'small'}
-            onClick={() => deleteMessage(task.id)}
-          >
-            Удалить
-          </Button>
+          {/*<Button type="primary" size={'small'} onClick={onClick}>*/}
+            <EditOutlined onClick={onClick}/>
+          {/*</Button>*/}
+          {/*<Button*/}
+          {/*  type="primary"*/}
+          {/*  danger*/}
+          {/*  size={'small'}*/}
+          {/*  */}
+          {/*>*/}
+            <DeleteOutlined onClick={() => deleteMessage(task.id)}/>
+          {/*</Button>*/}
         </div>
       </div>
       {isVisible && (

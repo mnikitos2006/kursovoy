@@ -1,39 +1,39 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { Status } from '../../../Provider/data'
 import { TaskContainer } from '../../../Header/components/TaskContainer/TaskContainer'
 import { TaskWrapper } from '../taskWrapper'
+import { TaskManagerContext } from '../../../Provider'
+import styles from './DraggAndDrop.module.css'
+import cls from 'classnames'
 
+const getColumns = (tasks) => ({
+  'column-1': {
+    id: Status.new,
+    title: 'Новое',
+    taskIds: tasks.filter((el) => el.status === Status.new),
+  },
+  'column-2': {
+    id: Status.inWork,
+    title: 'В работе',
+    taskIds: tasks.filter((el) => el.status === Status.inWork),
+  },
+  'column-3': {
+    id: Status.done,
+    title: 'Готово',
+    taskIds: tasks.filter((el) => el.status === Status.done),
+  },
+})
 const Board = (props) => {
-  const { sortTask, setTask: setSortedTask } = props
-  const initialTasks = sortTask
-
-  const columns = {
-    'column-1': {
-      id: Status.new,
-      title: 'Новое',
-      taskIds: initialTasks.map((task) => task.id),
-    },
-    'column-2': {
-      id: Status.inWork,
-      title: 'В работе',
-      taskIds: [],
-    },
-    'column-3': {
-      id: Status.done,
-      title: 'Готово',
-      taskIds: [],
-    },
-  }
-  console.log(columns)
-  const [tasks, setTasks] = useState(initialTasks)
-  const [columnsData, setColumnsData] = useState(columns)
+  const { editTask } = useContext(TaskManagerContext)
+  const { sortTask, setSortedTask } = props
+  const [columnsData, setColumnsData] = useState(getColumns(sortTask))
 
   const onDragEnd = (result) => {
     const { source, destination, draggableId } = result
 
     if (!destination) {
-      return
+      return // Добавляем проверку на наличие destination
     }
 
     if (
@@ -42,66 +42,81 @@ const Board = (props) => {
     ) {
       return
     }
+    console.log(result)
+    console.log(result.destination.droppableId)
+    const changeTask = sortTask.find((el) => el.id === result.draggableId)
 
-    const sourceColumn = columnsData[source.droppableId]
-    const destinationColumn = columnsData[destination.droppableId]
-    const updatedSourceTaskIds = Array.from(sourceColumn.taskIds)
-    updatedSourceTaskIds.splice(source.index, 1)
-    const updatedDestinationTaskIds = Array.from(destinationColumn.taskIds)
-    updatedDestinationTaskIds.splice(destination.index, 0, draggableId)
-
-    const newColumnsData = {
-      ...columnsData,
-      [source.droppableId]: {
-        ...sourceColumn,
-        taskIds: updatedSourceTaskIds,
-      },
-      [destination.droppableId]: {
-        ...destinationColumn,
-        taskIds: updatedDestinationTaskIds,
-      },
-    }
-
-    setColumnsData(newColumnsData)
+    editTask(
+      changeTask.text,
+      changeTask.color,
+      changeTask.category,
+      changeTask.levelImportance,
+      changeTask.date,
+      result.destination.droppableId,
+      changeTask.id
+    )
   }
 
+  console.log(columnsData)
+  console.log(Object.values(columnsData))
+  useEffect(() => {
+    if (sortTask.length) {
+      setColumnsData(getColumns(sortTask))
+    }
+    console.log(sortTask, 'sortTask')
+  }, [sortTask])
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {Object.values(columnsData).map((column) => (
-        <Droppable droppableId={column.id} key={column.id}>
-          {(provided) => (
-            <div className="column">
-              <h3>{column.title}</h3>
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {column.taskIds.map((taskId, index) => {
-                  const task = tasks.find((t) => t.id === taskId)
-                  console.log(task)
-                  return (
-                    <Draggable draggableId={taskId} index={index} key={taskId}>
-                      {(provided) => (
-                        <div
-                          className="task"
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <TaskWrapper
-                            key={index}
-                            task={task}
-                            setTask={setSortedTask}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  )
-                })}
-                {provided.placeholder}
-              </div>
-            </div>
-          )}
-        </Droppable>
-      ))}
-    </DragDropContext>
+    <div className={styles.container}>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {Object.values(columnsData).map(
+          (column) =>
+            console.log(column) || (
+              <Droppable droppableId={column.id} key={column.id}>
+                {(provided) => (
+                  <div
+                    className={cls(styles.column, {
+                      [styles.new]: column.id === Status.new,
+                      [styles.inWork]: column.id === Status.inWork,
+                      [styles.done]: column.id === Status.done,
+                    })}
+                  >
+                    <h3>{column.title}</h3>
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                      {column.taskIds.map((taskId, index) => {
+                        return (
+                          <Draggable
+                            draggableId={taskId.id}
+                            index={index}
+                            key={taskId}
+                          >
+                            {(provided) => (
+                              <div
+                                className="task"
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                              >
+                                {taskId && (
+                                  <TaskWrapper
+                                    key={index}
+                                    task={taskId}
+                                    setTask={setSortedTask}
+                                  />
+                                )}
+                              </div>
+                            )}
+                          </Draggable>
+                        )
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  </div>
+                )}
+              </Droppable>
+            )
+        )}
+      </DragDropContext>
+    </div>
   )
 }
 

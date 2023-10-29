@@ -26,7 +26,7 @@ export const TaskManagerProvider = ({ children }) => {
       })
     })
   }
-  const editTask = (
+  const editTask= (
     newText,
     newColor,
     newCategory,
