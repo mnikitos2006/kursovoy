@@ -1,28 +1,46 @@
-.container{
-
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.container>span{
+    border: 1px solid grey;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    color: #e7ebf1;
+    font-weight: 500;
+    background: #282A2C;
 }
 
-.task{
+.task {
     margin-bottom: 12px;
     border-radius: 8px;
-    padding:10px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-style: solid ;
+    border-top-width: 10px;
 }
-.btnContainer{
+
+.btnContainer {
     display: flex;
     gap: 20px;
 }
-.wrapperStatus{
+
+.wrapperStatus {
     display: flex;
 }
-.newTask{
+
+.newTask {
     border: 1px solid blue;
 }
-.inWorkTask{
+
+.inWorkTask {
     border: 1px solid yellow;
 }
-.doneTask{
+
+.doneTask {
     border: 1px solid red;
 }

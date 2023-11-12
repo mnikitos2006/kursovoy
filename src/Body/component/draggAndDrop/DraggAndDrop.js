@@ -57,20 +57,17 @@ const Board = (props) => {
     )
   }
 
-  console.log(columnsData)
-  console.log(Object.values(columnsData))
   useEffect(() => {
     if (sortTask.length) {
       setColumnsData(getColumns(sortTask))
     }
-    console.log(sortTask, 'sortTask')
   }, [sortTask])
   return (
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>
         {Object.values(columnsData).map(
           (column) =>
-            console.log(column) || (
+             (
               <Droppable droppableId={column.id} key={column.id}>
                 {(provided) => (
                   <div
@@ -80,7 +77,7 @@ const Board = (props) => {
                       [styles.done]: column.id === Status.done,
                     })}
                   >
-                    <h3>{column.title}</h3>
+                    <h3 className={styles.title}>{column.title}</h3>
                     <div ref={provided.innerRef} {...provided.droppableProps}>
                       {column.taskIds.map((taskId, index) => {
                         return (
@@ -91,7 +88,7 @@ const Board = (props) => {
                           >
                             {(provided) => (
                               <div
-                                className="task"
+                                className={styles.task}
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}

@@ -18,38 +18,23 @@ export const TaskWrapper = (props) => {
   }
   const deleteMessage = (id) => {
     deleteTask(id)
-    // setTask((prevstate) => {
-    //   const newArray = [...prevstate]
-    //   const index = prevstate.findIndex((el) => el.id === task.id)
-    //   newArray.splice(index, 1)
-    //   return newArray
-    // })
   }
   return (
     <>
       <div
         className={styles.task}
         key={task.id}
-        style={{ background: task.color }}
+        style={{ borderColor: task.color }}
       >
-        <div>
+        <div className={styles.container}>
           <span>{task.text}</span> <span>{task.category}</span>{' '}
           <span>{task.levelImportance} </span>
           <span>{dayjs(task.date).format("MM-DD-YYYY")}</span>
         </div>
 
         <div className={styles.btnContainer}>
-          {/*<Button type="primary" size={'small'} onClick={onClick}>*/}
             <EditOutlined onClick={onClick}/>
-          {/*</Button>*/}
-          {/*<Button*/}
-          {/*  type="primary"*/}
-          {/*  danger*/}
-          {/*  size={'small'}*/}
-          {/*  */}
-          {/*>*/}
             <DeleteOutlined onClick={() => deleteMessage(task.id)}/>
-          {/*</Button>*/}
         </div>
       </div>
       {isVisible && (

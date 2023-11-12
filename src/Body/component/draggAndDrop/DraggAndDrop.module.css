@@ -2,18 +2,44 @@
     /*border:1px solid black;*/
     padding:10px;
     border-radius: 8px;
+    border-top-width: 8px;
+    border-style: solid;
+    width: calc(100%/3 - 20px);
 }
 .container{
     display:flex;
     gap:20px;
+
+}
+.task{
+    background: #333c49;
+    border-radius: 8px;
+
+
+
 }
 .new{
-    background: green;
+    background-color: rgb(38, 54, 49);
+    border-color: rgb(84, 160, 155);
 }
 .inWork{
-    background: blue;
+    background-color: rgb(49, 38, 54);
+    border-color: rgb(173, 113, 221);
 }
 
 .done{
-  background: aqua;
+    background-color: rgb(54, 48, 38);
+    border-color: rgb(194, 148, 94);
+}
+.newUp{
+    border-color: rgb(84, 160, 155);
+}
+.inWorkUp{
+    border-color: rgb(173, 113, 221);
+}
+.doneUp{
+    border-color: rgb(194, 148, 94);
+}
+.title{
+    color: #e7ebf1;
 }

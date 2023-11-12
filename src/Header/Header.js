@@ -10,7 +10,7 @@ import {AddTask} from "./components/AddTask/AddTask";
 export const Header = () => {
     const {isVisibleAddTask,setIsVisibleAddTask}=useContext(TaskManagerContext)
     return <div className={styles.container}>
-        <div>tasks Manager</div>
+        <h1>Tasks Manager by NIKITA</h1>
         <Plus onClick={() => setIsVisibleAddTask(true)}/>
 
         {isVisibleAddTask && <ModalWindow setIsVisible={setIsVisibleAddTask}>

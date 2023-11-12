@@ -11,12 +11,14 @@ export const TaskManagerProvider = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [color, setColor] = useState("")
   const [isClicked, setIsClicked] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const fetchTasks = async () => {
     let response = await fetch(BASE_URL)
     // читаем ответ в формате JSON
     return await response.json()
   }
   const deleteTask = (id) => {
+    setIsLoading(true)
     fetch(`${BASE_URL}/${id}`, {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
@@ -24,6 +26,8 @@ export const TaskManagerProvider = ({ children }) => {
       fetchTasks().then((result) => {
         setTask(result)
       })
+    }).finally(()=>{
+      setIsLoading(false)
     })
   }
   const editTask= (
@@ -36,7 +40,9 @@ export const TaskManagerProvider = ({ children }) => {
     id
   ) => {
     // если есть ID тогда редактируем если нет то создаём новую
+    setIsLoading(true)
     if (id) {
+
       fetch(`${BASE_URL}/${id}`, {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
@@ -58,6 +64,8 @@ export const TaskManagerProvider = ({ children }) => {
             return newArr
           })
         })
+      }).finally(()=>{
+        setIsLoading(false)
       })
     } else {
       fetch(BASE_URL, {
@@ -75,6 +83,8 @@ export const TaskManagerProvider = ({ children }) => {
         res.json().then((result) => {
           setTask((prevstate) => [result, ...prevstate])
         })
+      }).finally(()=>{
+        setIsLoading(false)
       })
       setIsVisibleAddTask(false)
     }
@@ -99,6 +109,7 @@ export const TaskManagerProvider = ({ children }) => {
       setIsVisibleAddTask,
       isVisibleEditTask,
       setIsVisibleEditTask,
+      isLoading
     }
   }
   return (
