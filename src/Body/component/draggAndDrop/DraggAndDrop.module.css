@@ -10,6 +10,8 @@
 .container{
     display:flex;
     gap:20px;
+overflow-x:hidden ;
+    height: 100%;
 
 }
 .task{
@@ -43,4 +45,8 @@
 }
 .title{
     color: #e7ebf1;
+}
+
+.ref{
+    height: 70%;
 }

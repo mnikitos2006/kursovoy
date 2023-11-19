@@ -1,11 +1,15 @@
-import {Select} from "antd";
+import { Select } from 'antd'
+import styles from './selects.module.css'
 
-export const CustomSelect=(props)=>{
-    const {options,defaultValue,onChange}=props
-    return <Select
+export const CustomSelect = (props) => {
+  const { options, defaultValue, onChange } = props
+  return (
+
+      <Select className={styles.selects}
         onChange={onChange}
         defaultValue={defaultValue}
-        style={{ width: 120 }}
         options={options}
-    />
+      />
+
+  )
 }

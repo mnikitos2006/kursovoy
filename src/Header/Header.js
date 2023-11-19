@@ -6,10 +6,12 @@ import {ModalWindow} from "../ModalWindow/ModalWindow";
 import {TaskManagerContext} from "../Provider";
 import {TaskContainer} from "./components/TaskContainer/TaskContainer";
 import {AddTask} from "./components/AddTask/AddTask";
+import {Button} from "antd";
 
 export const Header = () => {
-    const {isVisibleAddTask,setIsVisibleAddTask}=useContext(TaskManagerContext)
+    const {isVisibleAddTask,setIsVisibleAddTask, fetchLogout}=useContext(TaskManagerContext)
     return <div className={styles.container}>
+        <Button onClick={fetchLogout}> Выход</Button>
         <h1>Tasks Manager by NIKITA</h1>
         <Plus onClick={() => setIsVisibleAddTask(true)}/>
 

@@ -56,7 +56,7 @@ const Board = (props) => {
       changeTask.id
     )
   }
-
+  console.log(columnsData)
   useEffect(() => {
     if (sortTask.length) {
       setColumnsData(getColumns(sortTask))
@@ -78,13 +78,13 @@ const Board = (props) => {
                     })}
                   >
                     <h3 className={styles.title}>{column.title}</h3>
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                    <div className={styles.ref} ref={provided.innerRef} {...provided.droppableProps}>
                       {column.taskIds.map((taskId, index) => {
                         return (
                           <Draggable
                             draggableId={taskId.id}
                             index={index}
-                            key={taskId}
+                            key={taskId.id}
                           >
                             {(provided) => (
                               <div

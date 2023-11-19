@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    /*overflow-x:scroll ;*/
+    width: 100%;
 }
 .container>span{
     border: 1px solid grey;

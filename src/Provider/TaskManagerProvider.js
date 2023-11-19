@@ -3,15 +3,28 @@ import { getColorTask } from './data'
 import { BASE_URL } from '../constants/constants'
 
 export const TaskManagerContext = createContext({})
+
 export const TaskManagerProvider = ({ children }) => {
+  const [isAuth, setIsAuth] = useState(false)
   const [isVisibleAddTask, setIsVisibleAddTask] = useState(false)
   const [isVisibleEditTask, setIsVisibleEditTask] = useState(false)
   const [tasks, setTask] = useState([])
   const [text, setText] = useState('')
   const [isVisible, setIsVisible] = useState(false)
-  const [color, setColor] = useState("")
+  const [color, setColor] = useState('')
   const [isClicked, setIsClicked] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const fetchLogin = (login, password) => {
+    if (login === 'Nikita' && password === 'admin') {
+      setIsAuth(true)
+      localStorage.setItem('isAuth', 'true')
+    }
+  }
+  const fetchLogout = () => {
+    setIsAuth(false)
+    localStorage.removeItem('isAuth')
+  }
   const fetchTasks = async () => {
     let response = await fetch(BASE_URL)
     // читаем ответ в формате JSON
@@ -22,15 +35,17 @@ export const TaskManagerProvider = ({ children }) => {
     fetch(`${BASE_URL}/${id}`, {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
-    }).then((bla) => {
-      fetchTasks().then((result) => {
-        setTask(result)
-      })
-    }).finally(()=>{
-      setIsLoading(false)
     })
+      .then((bla) => {
+        fetchTasks().then((result) => {
+          setTask(result)
+        })
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
-  const editTask= (
+  const editTask = (
     newText,
     newColor,
     newCategory,
@@ -42,7 +57,6 @@ export const TaskManagerProvider = ({ children }) => {
     // если есть ID тогда редактируем если нет то создаём новую
     setIsLoading(true)
     if (id) {
-
       fetch(`${BASE_URL}/${id}`, {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
@@ -54,19 +68,21 @@ export const TaskManagerProvider = ({ children }) => {
           date: newDate,
           status: newCheckedStatus,
         }),
-      }).then((res) => {
-        res.json().then((result) => {
-          setTask((prevState) => {
-            const newArr = [...prevState]
-            newArr.find((el) => el.id === id)
-            const index = newArr.findIndex((el) => el.id === id)
-            newArr[index] = result
-            return newArr
+      })
+        .then((res) => {
+          res.json().then((result) => {
+            setTask((prevState) => {
+              const newArr = [...prevState]
+              newArr.find((el) => el.id === id)
+              const index = newArr.findIndex((el) => el.id === id)
+              newArr[index] = result
+              return newArr
+            })
           })
         })
-      }).finally(()=>{
-        setIsLoading(false)
-      })
+        .finally(() => {
+          setIsLoading(false)
+        })
     } else {
       fetch(BASE_URL, {
         method: 'POST',
@@ -79,13 +95,15 @@ export const TaskManagerProvider = ({ children }) => {
           date: newDate,
           status: newCheckedStatus,
         }),
-      }).then((res) => {
-        res.json().then((result) => {
-          setTask((prevstate) => [result, ...prevstate])
-        })
-      }).finally(()=>{
-        setIsLoading(false)
       })
+        .then((res) => {
+          res.json().then((result) => {
+            setTask((prevstate) => [result, ...prevstate])
+          })
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
       setIsVisibleAddTask(false)
     }
     setIsVisible(false)
@@ -109,7 +127,11 @@ export const TaskManagerProvider = ({ children }) => {
       setIsVisibleAddTask,
       isVisibleEditTask,
       setIsVisibleEditTask,
-      isLoading
+      isLoading,
+      isAuth,
+      fetchLogin,
+      fetchLogout,
+      setIsAuth,
     }
   }
   return (
