@@ -5,6 +5,7 @@
     border-top-width: 8px;
     border-style: solid;
     width: calc(100%/3 - 20px);
+    min-width: 300px;
 }
 .container{
     display:flex;
