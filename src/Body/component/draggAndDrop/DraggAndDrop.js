@@ -29,6 +29,10 @@ const Board = (props) => {
   const { sortTask, setSortedTask } = props
   const [columnsData, setColumnsData] = useState(getColumns(sortTask))
 
+  useEffect(() => {
+    setColumnsData(getColumns(sortTask))
+  }, [sortTask])
+
   const onDragEnd = (result) => {
     const { source, destination, draggableId } = result
 
@@ -42,8 +46,6 @@ const Board = (props) => {
     ) {
       return
     }
-    console.log(result)
-    console.log(result.destination.droppableId)
     const changeTask = sortTask.find((el) => el.id === result.draggableId)
 
     editTask(
@@ -56,7 +58,6 @@ const Board = (props) => {
       changeTask.id
     )
   }
-  console.log(columnsData)
   useEffect(() => {
     if (sortTask.length) {
       setColumnsData(getColumns(sortTask))
@@ -65,53 +66,54 @@ const Board = (props) => {
   return (
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>
-        {Object.values(columnsData).map(
-          (column) =>
-             (
-              <Droppable droppableId={column.id} key={column.id}>
-                {(provided) => (
-                  <div
-                    className={cls(styles.column, {
-                      [styles.new]: column.id === Status.new,
-                      [styles.inWork]: column.id === Status.inWork,
-                      [styles.done]: column.id === Status.done,
-                    })}
-                  >
-                    <h3 className={styles.title}>{column.title}</h3>
-                    <div className={styles.ref} ref={provided.innerRef} {...provided.droppableProps}>
-                      {column.taskIds.map((taskId, index) => {
-                        return (
-                          <Draggable
-                            draggableId={taskId.id}
-                            index={index}
-                            key={taskId.id}
+        {Object.values(columnsData).map((column) => (
+          <Droppable droppableId={column.id} key={column.id}>
+            {(provided) => (
+              <div
+                className={cls(styles.column, {
+                  [styles.new]: column.id === Status.new,
+                  [styles.inWork]: column.id === Status.inWork,
+                  [styles.done]: column.id === Status.done,
+                })}
+              >
+                <h3 className={styles.title}>{column.title}</h3>
+                <div
+                  className={styles.ref}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {column.taskIds.map((taskId, index) => {
+                    return (
+                      <Draggable
+                        draggableId={taskId.id}
+                        index={index}
+                        key={taskId.id}
+                      >
+                        {(provided) => (
+                          <div
+                            className={styles.task}
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
                           >
-                            {(provided) => (
-                              <div
-                                className={styles.task}
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                {taskId && (
-                                  <TaskWrapper
-                                    key={index}
-                                    task={taskId}
-                                    setTask={setSortedTask}
-                                  />
-                                )}
-                              </div>
+                            {taskId && (
+                              <TaskWrapper
+                                key={index}
+                                task={taskId}
+                                setTask={setSortedTask}
+                              />
                             )}
-                          </Draggable>
-                        )
-                      })}
-                      {provided.placeholder}
-                    </div>
-                  </div>
-                )}
-              </Droppable>
-            )
-        )}
+                          </div>
+                        )}
+                      </Draggable>
+                    )
+                  })}
+                  {provided.placeholder}
+                </div>
+              </div>
+            )}
+          </Droppable>
+        ))}
       </DragDropContext>
     </div>
   )
