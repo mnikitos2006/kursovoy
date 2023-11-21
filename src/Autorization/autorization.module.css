@@ -1,0 +1,24 @@
+.container{
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    background-color: #333c49;
+}
+
+.wrapper{
+    display:flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    width: 300px;
+    color: white;
+    background-color: #222931;
+    border-radius: 16px;
+
+}

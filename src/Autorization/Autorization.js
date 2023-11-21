@@ -1,26 +1,34 @@
-import {GetLable} from "../GetLable/GetLable";
-import {Button, Input} from "antd";
-import Password from "antd/es/input/Password";
-import {useContext, useState} from "react";
-import {TaskManagerContext} from "../Provider";
+import { GetLable } from '../GetLable/GetLable'
+import { Button, Input } from 'antd'
+import Password from 'antd/es/input/Password'
+import { useContext, useState } from 'react'
+import { TaskManagerContext } from '../Provider'
+import styles from './autorization.module.css'
 
 export const Autorization = () => {
-  const [login,setLogin]=useState("")
-  const [password,setPassword]=useState("")
-  const {fetchLogin} = useContext(TaskManagerContext)
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
+  const { fetchLogin } = useContext(TaskManagerContext)
 
-  const onLogin=()=>{
-fetchLogin(login,password)
+  const onLogin = () => {
+    fetchLogin(login, password)
   }
-  return <div>
-    <GetLable title={"Введите своё имя"}>
-      <Input value={login} onChange={(el)=>setLogin(el.target.value)}/>
-    </GetLable>
+  return (
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <GetLable title={'Введите своё имя'}>
+          <Input value={login} onChange={(el) => setLogin(el.target.value)} />
+        </GetLable>
 
-    <GetLable title={"Введите пароль"}>
-      <Password value={password} onChange={(el)=>setPassword(el.target.value)}/>
-    </GetLable>
+        <GetLable title={'Введите пароль'}>
+          <Password
+            value={password}
+            onChange={(el) => setPassword(el.target.value)}
+          />
+        </GetLable>
 
- <Button onClick={onLogin}>Войти</Button>
-  </div>
+        <Button onClick={onLogin}>Войти</Button>
+      </div>
+    </div>
+  )
 }
