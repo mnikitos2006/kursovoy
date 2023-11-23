@@ -24,11 +24,37 @@
     justify-content: space-between;
     border-style: solid ;
     border-top-width: 10px;
+    gap: 10px;
 }
 
-.btnContainer {
+
+.btnTask{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
+
+
+
+}
+.edit *{
+    width: 30px;
+    height: 30px;
+    fill: dodgerblue;
+}
+
+.delete *{
+    width: 30px;
+    height: 30px;
+    fill: crimson;
+}
+
+.done *{
+    width: 30px;
+    height: 30px;
+    fill: greenyellow;
+
 }
 
 .wrapperStatus {
@@ -45,4 +71,8 @@
 
 .doneTask {
     border: 1px solid red;
+}
+
+.throud{
+    text-decoration:line-through;
 }

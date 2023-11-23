@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty'
 import {Notfound} from "./component/Notfound/Notfound";
 
 export const Body = () => {
-  const { tasks, setTask, fetchTasks, filter } = useContext(TaskManagerContext)
+  const { tasks, setTask, fetchTasks, filter,search } = useContext(TaskManagerContext)
   useEffect(() => {
     fetchTasks().then((result) => {
       setTask(result)
@@ -34,10 +34,12 @@ export const Body = () => {
       })
     }
   }
+
+
   return (
     <div className={styles.container}>
       {tasks.length === 0 ? <Notfound/>:
-      <DraggAndDrop sortTask={filterTask()} setTask={setTask} />}
+      <DraggAndDrop sortTask={filterTask().filter((el)=>el.text.includes(search))} setTask={setTask} />}
     </div>
   )
 }

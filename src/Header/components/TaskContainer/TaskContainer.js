@@ -12,7 +12,7 @@ import { TaskManagerContext } from '../../../Provider'
 import isEmpty from 'lodash/isEmpty'
 import { CustomSelect } from './Components/CustomSelect/CustomSelect'
 import { value } from 'lodash/seq'
-import { DatePicker } from 'antd'
+import {DatePicker, Input} from 'antd'
 import dayjs from 'dayjs'
 import { Radio } from 'antd'
 import {
@@ -78,15 +78,15 @@ export const TaskContainer = (props) => {
   return (
     <div className={styles.oknoGlavnoe}>
       <GetLable title={'Name'}>
-        <input
-          className={styles.name}
+        <Input
+
           placeholder={'Введите название'}
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
       </GetLable>
       <GetLable title={'Date'}>
-        <DatePicker defaultValue={dayjs(date)} onChange={onChangeDate} />
+        <DatePicker style={{width:"100%"}} defaultValue={dayjs(date)} onChange={onChangeDate} />
       </GetLable>
 
       <GetLable title={'Category'}>

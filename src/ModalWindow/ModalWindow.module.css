@@ -27,6 +27,7 @@ z-index: 100;
     /*margin: 10px;*/
     display: flex;
     justify-content: center;
+    position: relative;
 
 
 }
@@ -34,11 +35,14 @@ z-index: 100;
     display: flex;
     justify-content: flex-end;
     /*position: absolute;*/
+    position: relative;
 }
 .header svg{
     transform: rotate(45deg);
     cursor: pointer;
    margin-right: -270px;
     position: absolute;
+    top: 20px;
+    right: 5px;
 
 }

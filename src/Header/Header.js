@@ -8,6 +8,7 @@ import { TaskContainer } from './components/TaskContainer/TaskContainer'
 import { AddTask } from './components/AddTask/AddTask'
 import { Button } from 'antd'
 import { Filter } from './components/Filter/Filter'
+import {SearchInput} from "./components/SearchInput/SearchInput";
 
 export const Header = () => {
   const { isVisibleAddTask, setIsVisibleAddTask, fetchLogout, user } =
@@ -21,6 +22,7 @@ export const Header = () => {
         <Plus onClick={() => setIsVisibleAddTask(true)} />
       </div>
       <Filter />
+        <SearchInput/>
 
       {isVisibleAddTask && (
         <ModalWindow setIsVisible={setIsVisibleAddTask}>

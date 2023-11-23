@@ -1,24 +1,40 @@
 import styles from '../Body.module.css'
 import { ModalWindow } from '../../ModalWindow/ModalWindow'
 import { EditTask } from '../../Header/components/EditTask/EditTask'
-import {useContext, useState} from 'react'
+import { useContext, useState } from 'react'
 import { Button } from 'antd'
-import {TaskManagerContext} from "../../Provider";
-import dayjs from "dayjs";
-import {EditOutlined,DeleteOutlined} from "@ant-design/icons";
-
+import { TaskManagerContext } from '../../Provider'
+import dayjs from 'dayjs'
+import {EditOutlined, DeleteOutlined, CheckCircleOutlined} from '@ant-design/icons'
+import { HighlightedText } from './HighlightedText/HighlightedText'
+import cls from 'classnames'
+import { Status } from '../../Provider/data'
 
 export const TaskWrapper = (props) => {
   const { task, setTask } = props
   const [isVisible, setIsVisible] = useState(false)
-  const {deleteTask} = useContext(TaskManagerContext)
+  const { deleteTask, search, doneTask } = useContext(TaskManagerContext)
 
+  const isDone=task.status===Status.done
   const onClick = () => {
-    setIsVisible(true)
+    if (!isDone){
+      setIsVisible(true)
+    }
+
   }
   const deleteMessage = (id) => {
-    deleteTask(id)
+    if (!isDone){
+      deleteTask(id)
+    }
+
   }
+  const checkedTask = (id) => {
+    if (!isDone){
+      doneTask(id)
+    }
+
+  }
+
   return (
     <>
       <div
@@ -27,14 +43,26 @@ export const TaskWrapper = (props) => {
         style={{ borderColor: task.color }}
       >
         <div className={styles.container}>
-          <span>{task.text}</span> <span>{task.category}</span>{' '}
-          <span>{task.levelImportance} </span>
-          <span>{dayjs(task.date).format("MM-DD-YYYY")}</span>
+          <HighlightedText
+            className={cls(isDone && styles.throud)}
+            search={search}
+            text={task.text}
+          />
+          <span className={cls(isDone && styles.throud)}>
+            {task.category}
+          </span>
+          <span className={cls(isDone && styles.throud)}>
+            {task.levelImportance}
+          </span>
+          <span className={cls(isDone && styles.throud)}>{dayjs(task.date).format('MM-DD-YYYY')}</span>
         </div>
 
-        <div className={styles.btnContainer}>
-            <EditOutlined onClick={onClick}/>
-            <DeleteOutlined onClick={() => deleteMessage(task.id)}/>
+        <div className={styles.btnTask}>
+          {!isDone&& <CheckCircleOutlined className={styles.done} onClick={()=>checkedTask(task.id)}/>}
+
+          <EditOutlined  className={styles.edit} onClick={onClick} />
+          <DeleteOutlined  className={styles.delete} onClick={() => deleteMessage(task.id)} />
+
         </div>
       </div>
       {isVisible && (
