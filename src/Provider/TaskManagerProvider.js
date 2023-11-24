@@ -39,7 +39,7 @@ export const TaskManagerProvider = ({children}) => {
                 }
             })
         })
-        // читаем ответ в формате JSON
+
         setIsLoading(false)
 
 
@@ -54,7 +54,7 @@ export const TaskManagerProvider = ({children}) => {
                 name: login, password
             })
         })
-        // читаем ответ в формате JSON
+
         setIsLoading(false)
         setIsRegistered(true)
         setTimeout(() => setIsRegistered(false), 5000)
@@ -73,7 +73,7 @@ export const TaskManagerProvider = ({children}) => {
         const url = new URL(`${BASE_URL}/tasks`)
         url.searchParams.append('userId', user.id)
         let response = await fetch(url)
-        // читаем ответ в формате JSON
+
         setIsLoading(false)
 
         return await response.json()

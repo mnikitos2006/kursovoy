@@ -38,8 +38,9 @@ function App() {
     ) : (<>
             {screen === "auth" && <Autorization/>}
             {screen === "registration" && <Registration/>}
+            <div className={styles.knopka}>
             <Button
-                onClick={() => setScreen(screen === "auth" ? "registration" : "auth")}>{screen === "auth" ? "registration" : "auth"}</Button>
+                onClick={() => setScreen(screen === "auth" ? "registration" : "auth")}>{screen === "auth" ? "Зарегистрироваться" : "Войти"}</Button></div>
         </>
     )
 }
