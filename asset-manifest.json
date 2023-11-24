@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/kursovoy/static/css/main.3d9be34c.css",
-    "main.js": "/kursovoy/static/js/main.26dd7b62.js",
+    "main.css": "/kursovoy/static/css/main.10dfe69a.css",
+    "main.js": "/kursovoy/static/js/main.6402a587.js",
     "static/js/787.70912f31.chunk.js": "/kursovoy/static/js/787.70912f31.chunk.js",
     "static/media/pluse.svg": "/kursovoy/static/media/pluse.969944f4b1feef692902fda64d1410e2.svg",
     "index.html": "/kursovoy/index.html",
-    "main.3d9be34c.css.map": "/kursovoy/static/css/main.3d9be34c.css.map",
-    "main.26dd7b62.js.map": "/kursovoy/static/js/main.26dd7b62.js.map",
+    "main.10dfe69a.css.map": "/kursovoy/static/css/main.10dfe69a.css.map",
+    "main.6402a587.js.map": "/kursovoy/static/js/main.6402a587.js.map",
     "787.70912f31.chunk.js.map": "/kursovoy/static/js/787.70912f31.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3d9be34c.css",
-    "static/js/main.26dd7b62.js"
+    "static/css/main.10dfe69a.css",
+    "static/js/main.6402a587.js"
   ]
 }
